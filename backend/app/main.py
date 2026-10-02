@@ -14,6 +14,9 @@ from app.api.v1 import router as api_v1_router
 from app.core.config import settings
 from app.core.errors import AskDocsException
 from app.core.logging import get_logger
+from app.core.monitoring import setup_monitoring, start_metrics_server
+from app.core.cache import init_cache_system
+from app.core.redis import redis_client
 from app.db.base import init_db, close_db
 from app.middleware.tenant_context import TenantContextMiddleware
 from app.middleware.rate_limiting import RateLimitMiddleware
@@ -28,6 +31,14 @@ async def lifespan(app: FastAPI):
     """Application lifespan events."""
     # Startup
     logger.info("Starting AskDocs application")
+    
+    # Initialize monitoring and cache systems
+    setup_monitoring()
+    init_cache_system(redis_client)
+    
+    # Start metrics server on different port in production
+    if settings.is_production:
+        start_metrics_server(port=8001)
     
     # Initialize database
     await init_db()
