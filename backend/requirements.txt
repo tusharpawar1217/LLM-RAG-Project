@@ -1,0 +1,61 @@
+# Core
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.25
+alembic==1.13.1
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+
+# Cache & Queue
+redis==5.0.1
+arq==0.25.0
+
+# Vector Store
+qdrant-client==1.7.3
+
+# AI/ML
+openai==1.10.0
+anthropic==0.18.1
+langchain==0.1.4
+langchain-text-splitters==0.0.1
+rank-bm25==0.2.2
+numpy==1.26.3
+scikit-learn==1.4.0
+
+# Document Processing
+pypdf==4.0.1
+python-docx==1.1.0
+python-multipart==0.0.6
+beautifulsoup4==4.12.3
+markdown==3.5.2
+fpdf2==2.7.6
+
+# HTTP Client
+httpx==0.26.0
+
+# Utilities
+tenacity==8.2.3
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Payment
+stripe==8.0.0
+
+# Observability
+sentry-sdk[fastapi]==1.40.5
+structlog==24.1.0
+python-json-logger==2.0.7
+
+# Dev Dependencies
+pytest==7.4.4
+pytest-asyncio==0.23.5
+pytest-cov==4.1.0
+ruff==0.1.14
+mypy==1.8.0
+black==24.1.1
+pre-commit==3.6.0
+faker==22.6.0
