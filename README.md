@@ -1,484 +1,392 @@
-# AskDocs - Production-Grade Multi-Tenant RAG SaaS
+# 🤖 AskDocs - Production-Grade Multi-Tenant RAG SaaS
 
-A complete production-ready RAG (Retrieval-Augmented Generation) platform that enables small businesses to upload documents and get an embeddable chat widget that answers customer questions strictly from those documents, with verified citations and human handoff.
+<div align="center">
 
-## ✨ Key Features
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 
-### 🚀 **Core RAG Pipeline**
-- **Multi-format Document Ingestion** - PDF, DOCX, Markdown, TXT, and URL crawling
-- **Hybrid Search** - Dense vector search + BM25 sparse search with RRF fusion  
-- **Multi-Provider LLM** - OpenAI GPT-4o + Claude with automatic fallback
-- **Citation Verification** - Ensures answer accuracy with confidence scoring
-- **Human Handoff** - Automatic detection when human help is needed
+**A complete production-ready RAG platform that enables businesses to upload documents and get AI-powered answers with verified citations and human handoff capabilities.**
 
-### 🏢 **Production-Grade Multi-Tenancy**
-- **Strict Data Isolation** - Per-tenant collections, indices, and access controls
-- **Role-Based Access Control** - Owner, Admin, Member, Viewer roles
-- **API Key Management** - Programmatic access with scoped permissions  
-- **Usage Tracking** - Per-tenant resource monitoring and billing support
+[Demo](#demo--testing) • [Features](#key-features) • [Quick Start](#quick-start) • [API Docs](#api-documentation) • [Deploy](#deployment)
 
-### 🔧 **Enterprise Architecture**
-- **Async FastAPI** - High-performance async Python backend
-- **PostgreSQL + Redis** - Robust data storage and caching
-- **Qdrant Vector DB** - Scalable vector storage with tenant isolation
-- **ARQ Background Jobs** - Reliable async document processing
-- **Docker Compose** - Complete development and deployment setup
+</div>
 
-### 📊 **Observability & Monitoring**
-- **Structured Logging** - JSON logs with correlation IDs
-- **Health Checks** - Component-level health monitoring
-- **Error Tracking** - Comprehensive error handling and reporting
-- **Performance Metrics** - Response times, success rates, resource usage
+---
 
-AskDocs is a production-ready, multi-tenant Software-as-a-Service platform where small businesses can upload documents and get an embeddable chat widget that answers customer questions strictly from those documents, with verified citations and human handoff capabilities.
+## 🎯 **What is AskDocs?**
 
-## Architecture Overview
+AskDocs is a **production-grade, multi-tenant SaaS platform** where businesses can:
+- 📄 Upload documents (PDF, DOCX, TXT, MD)
+- 🤖 Get AI-powered answers with citations
+- 🔍 Search across all documents with hybrid search
+- 💬 Embed chat widgets on websites
+- 📊 Monitor usage and performance
+- 🏢 Manage multiple tenants with strict data isolation
+
+## ✨ **Key Features**
+
+<table>
+<tr>
+<td width="33%">
+
+### 🚀 **Smart RAG Pipeline**
+- **Multi-format ingestion** (PDF, DOCX, MD, TXT)
+- **Hybrid search** (Vector + BM25 + RRF)
+- **Multi-provider LLM** (OpenAI + Anthropic)
+- **Citation verification** with confidence scoring
+- **Human handoff** detection
+
+</td>
+<td width="33%">
+
+### 🏢 **Enterprise Ready**
+- **Multi-tenant isolation** (strict data separation)
+- **Role-based access** (Owner/Admin/Member)
+- **API key management** with scopes
+- **Usage tracking** and billing ready
+- **Health monitoring** and observability
+
+</td>
+<td width="33%">
+
+### 🔧 **Production Architecture**
+- **Async FastAPI** backend
+- **PostgreSQL + Redis** data layer
+- **Qdrant** vector database
+- **ARQ** background processing
+- **Next.js** frontend dashboard
+
+</td>
+</tr>
+</table>
+
+## 🏗️ **System Architecture**
 
 ```mermaid
 graph TB
-    subgraph "Client Layer"
-        W[Chat Widget]
-        D[Dashboard UI]
-        API_CLIENT[API Client]
+    subgraph "🌐 Client Layer"
+        W[💬 Chat Widget]
+        D[📊 Dashboard UI]
+        API[🔧 API Clients]
     end
     
-    subgraph "API Gateway"
-        FASTAPI[FastAPI Server]
-        AUTH[Auth Middleware]
-        TENANT[Tenant Context]
-        RATE[Rate Limiter]
-        USAGE[Usage Tracker]
+    subgraph "🚪 API Gateway"
+        FASTAPI[⚡ FastAPI Server]
+        AUTH[🔐 Authentication]
+        TENANT[🏢 Multi-Tenant Context]
+        RATE[⏰ Rate Limiting]
     end
     
-    subgraph "Core Services"
-        DOC_SVC[Document Service]
-        QUERY_SVC[Query Service]
-        BILL_SVC[Billing Service]
+    subgraph "⚙️ Core Services"
+        DOC[📄 Document Service]
+        QUERY[🔍 Query Service]
+        GEN[🤖 Generation Service]
     end
     
-    subgraph "Ingestion Pipeline"
-        PARSER[Document Parsers]
-        CHUNKER[Chunking Strategy]
-        EMBEDDER[Embedding Service]
-        QUEUE[ARQ Job Queue]
+    subgraph "🔄 Processing Pipeline"
+        PARSE[📝 Document Parsers]
+        CHUNK[✂️ Text Chunking]
+        EMBED[🧠 Embeddings]
+        QUEUE[📤 Job Queue]
     end
     
-    subgraph "Retrieval Engine"
-        QDRANT[Qdrant Vector DB]
-        BM25[BM25 Index]
-        FUSION[RRF Fusion]
-        RERANK[Reranker]
+    subgraph "🔍 Search Engine"
+        VECTOR[(🎯 Vector Store)]
+        BM25[📊 BM25 Index]
+        FUSION[⚡ RRF Fusion]
     end
     
-    subgraph "Generation & Verification"
-        LLM[LLM Provider]
-        VERIFIER[Citation Verifier]
-        HANDOFF[Handoff Trigger]
-    end
-    
-    subgraph "Data Layer"
-        PG[(PostgreSQL)]
-        REDIS[(Redis)]
+    subgraph "💾 Data Layer"
+        PG[(🐘 PostgreSQL)]
+        REDIS[(🔴 Redis)]
     end
     
     W --> FASTAPI
     D --> FASTAPI
-    API_CLIENT --> FASTAPI
+    API --> FASTAPI
     
-    FASTAPI --> AUTH --> TENANT --> RATE --> USAGE
+    FASTAPI --> AUTH --> TENANT --> RATE
+    RATE --> DOC & QUERY & GEN
     
-    USAGE --> DOC_SVC
-    USAGE --> QUERY_SVC
-    USAGE --> BILL_SVC
+    DOC --> QUEUE --> PARSE --> CHUNK --> EMBED
+    EMBED --> VECTOR & BM25
     
-    DOC_SVC --> QUEUE --> PARSER --> CHUNKER --> EMBEDDER
-    EMBEDDER --> QDRANT
-    EMBEDDER --> BM25
-    
-    QUERY_SVC --> QDRANT
-    QUERY_SVC --> BM25
-    QDRANT --> FUSION
+    QUERY --> VECTOR & BM25
+    VECTOR --> FUSION
     BM25 --> FUSION
-    FUSION --> RERANK
-    RERANK --> LLM
-    LLM --> VERIFIER
-    VERIFIER --> HANDOFF
+    FUSION --> GEN
     
-    DOC_SVC --> PG
-    QUERY_SVC --> PG
-    BILL_SVC --> PG
-    
+    DOC --> PG
+    QUERY --> PG
     QUEUE --> REDIS
     RATE --> REDIS
 ```
 
-## Tech Stack
+## 🚀 **Quick Start**
 
-- **Backend**: Python 3.11, FastAPI (async), SQLAlchemy + Alembic
-- **Database**: PostgreSQL with proper indexing
-- **Cache & Queue**: Redis + ARQ for background jobs
-- **Vector Store**: Qdrant (one collection per tenant)
-- **Search**: BM25 (rank_bm25) + Dense embeddings (OpenAI)
-- **LLM**: Configurable providers (GPT-4o-mini default, GPT-4o fallback)
-- **Frontend**: Next.js dashboard + embeddable JS widget
-- **Deployment**: Docker + docker-compose, GitHub Actions CI/CD
+### **Option 1: Docker (Recommended)**
 
-## Features
-
-### ✅ Module 1: Core Infrastructure (COMPLETED)
-- [x] **Project Setup**: Python 3.11, FastAPI, SQLAlchemy, Alembic
-- [x] **Configuration**: Pydantic-settings with .env support
-- [x] **Database**: PostgreSQL with async SQLAlchemy, proper migrations
-- [x] **Logging**: Structured JSON logging with request tracing
-- [x] **Error Handling**: Custom exception hierarchy with HTTP status codes
-- [x] **Security**: Password hashing, API key generation, JWT utilities
-- [x] **Docker**: Multi-stage Dockerfile, docker-compose setup
-- [x] **Middleware**: Rate limiting, tenant context, usage tracking, tracing
-- [x] **Testing**: Pytest with async support, fixtures, health check tests
-- [x] **Code Quality**: Ruff, MyPy, Black, pre-commit hooks
-
-### ✅ Module 2: Auth & Multi-tenancy (COMPLETED)
-- [x] **Tenant Management**: Registration, branding, limits, statistics
-- [x] **User Authentication**: JWT tokens, password management, role-based access
-- [x] **API Key Authentication**: Scoped API keys with expiration and revocation
-- [x] **Multi-tenant Isolation**: Strict data isolation enforced at every query
-- [x] **User Management**: Owner/Admin/Member roles with proper permissions
-- [x] **Tenant Context**: Automatic tenant isolation in all API endpoints
-- [x] **Security Testing**: Comprehensive tests proving no cross-tenant leakage
-
-### 🚧 Upcoming Modules
-
-3. **Document Ingestion**: PDF/DOCX/MD/TXT + URL crawling, background workers, idempotent processing
-4. **Retrieval Engine**: Hybrid search (dense + BM25), RRF fusion, optional reranker
-5. **Generation & Verification**: LLM with citations, verification system, confidence scoring
-6. **Chat Widget**: Embeddable JS, SSE streaming, per-tenant branding
-7. **Next.js Dashboard**: Document management, conversation logs, analytics
-8. **Billing Integration**: Stripe/Razorpay, plan limits, usage enforcement
-9. **Observability**: Sentry integration, cost tracking, performance monitoring
-10. **Evaluation Framework**: Golden Q&A, automated metrics, CI regression tests
-
-## Development Setup
-
-### Prerequisites
-- Python 3.11+
-- Docker & Docker Compose
-- PostgreSQL (for local development)
-- Redis (for local development)
-
-### Quick Start
-
-1. **Clone and setup**:
 ```bash
-git clone <repo-url>
-cd askdocs/backend
-python setup_dev.py
-```
+# Clone the repository
+git clone https://github.com/tusharpawar1217/LLM-RAG-Project.git
+cd LLM-RAG-Project/askdocs
 
-2. **Install dependencies**:
-```bash
-pip install -r requirements.txt
-```
-
-3. **Start with Docker** (recommended):
-```bash
-# From project root
+# Start all services
 docker compose up -d
-```
 
-4. **Run migrations**:
-```bash
+# Initialize database
 cd backend
-alembic upgrade head
-```
-
-5. **Verify setup**:
-```bash
-curl http://localhost:8000/health
-curl http://localhost:8000/api/v1/health/db
-```
-
-### Development Commands
-
-```bash
-# Development server
-make dev
-
-# Run tests
-make test
-
-# Code quality
-make lint
-make format
-make check
-
-# Database migrations
-make migrations name="your_migration_name"
 make upgrade
 
-# Docker operations
-make docker-up
-make docker-down
-make docker-logs
+# Verify setup
+curl http://localhost:8000/health
 ```
 
-## API Documentation
+### **Option 2: Local Development**
 
-### Authentication
-
-The API supports two authentication methods:
-
-#### 1. JWT Token Authentication (Dashboard/Web)
 ```bash
-# Login to get tokens
-curl -X POST http://localhost:8000/api/v1/auth/login \
+# Backend setup
+cd askdocs/backend
+pip install -r requirements.txt
+make docker-up     # Start PostgreSQL, Redis, Qdrant
+make upgrade       # Run migrations
+make dev          # Start API server
+
+# Frontend setup (separate terminal)
+cd askdocs/frontend
+npm install
+npm run dev       # Start Next.js dashboard
+```
+
+**🎉 That's it!**
+- Backend API: http://localhost:8000
+- Frontend Dashboard: http://localhost:3000
+- API Documentation: http://localhost:8000/docs
+
+## 📋 **Current Status & Modules**
+
+<table>
+<tr>
+<td width="50%">
+
+### ✅ **Completed Modules**
+
+**🏗️ Module 1: Core Infrastructure**
+- FastAPI with async SQLAlchemy
+- PostgreSQL + Redis + Docker setup
+- Structured logging & error handling
+- Health checks & middleware
+
+**🔐 Module 2: Authentication & Multi-Tenancy**
+- JWT authentication system
+- Multi-tenant data isolation
+- Role-based access control (RBAC)
+- API key management with scopes
+
+**📄 Module 3: Document Ingestion**
+- Multi-format parsers (PDF/DOCX/TXT/MD)
+- Chunking strategies with overlap
+- OpenAI embeddings integration
+- Background processing with ARQ
+
+**🔍 Module 4: Retrieval & Generation**
+- Hybrid search (Vector + BM25)
+- Reciprocal Rank Fusion (RRF)
+- Multi-provider LLM integration
+- Citation verification system
+
+**💻 Module 5: Frontend Dashboard**
+- Next.js 15 + TypeScript + Tailwind
+- Document management interface
+- Interactive chat with citations
+- Analytics dashboard
+
+</td>
+<td width="50%">
+
+### 🚧 **Next Steps**
+
+**💬 Module 6: Chat Widget**
+- Embeddable JavaScript widget
+- Real-time streaming responses
+- Custom branding per tenant
+- Website integration examples
+
+**💳 Module 7: Billing & Subscriptions**
+- Stripe/Razorpay integration
+- Usage-based pricing models
+- Plan limits enforcement
+- Invoice generation
+
+**⚡ Module 8: Advanced Features**
+- Conversation memory
+- Query rewriting & expansion
+- Custom reranking models
+- A/B testing framework
+
+**📊 Module 9: Observability**
+- Sentry error tracking
+- Cost monitoring
+- Performance metrics
+- Alerting system
+
+</td>
+</tr>
+</table>
+
+## 🧪 **Demo & Testing**
+
+### **Try the System**
+
+```bash
+# Register tenant
+curl -X POST "http://localhost:8000/api/v1/tenants/" \
   -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "password": "password123"}'
+  -d '{
+    "name": "My Company",
+    "owner_email": "owner@company.com",
+    "owner_password": "secure123",
+    "owner_full_name": "Owner Name"
+  }'
 
-# Use access token
-curl -H "Authorization: Bearer <access_token>" \
-  http://localhost:8000/api/v1/auth/me
-```
-
-#### 2. API Key Authentication (Integrations)
-```bash
-# Create API key (requires admin/owner JWT token)
-curl -X POST http://localhost:8000/api/v1/api-keys/ \
-  -H "Authorization: Bearer <admin_token>" \
+# Login
+curl -X POST "http://localhost:8000/api/v1/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{"name": "My Integration", "scopes": ["query", "ingest"]}'
+  -d '{"email": "owner@company.com", "password": "secure123"}'
 
-# Use API key
-curl -H "Authorization: Bearer <api_key>" \
-  http://localhost:8000/api/v1/tenants/current
+# Upload document
+curl -X POST "http://localhost:8000/api/v1/documents/upload" \
+  -H "Authorization: Bearer <token>" \
+  -F "file=@your_document.pdf"
+
+# Ask question
+curl -X POST "http://localhost:8000/api/v1/query/" \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What are the key points in the document?"}'
 ```
 
-### Core Endpoints
-
-#### Tenant Management
-```bash
-# Register new tenant
-POST /api/v1/tenants/
-{
-  "name": "My Company",
-  "owner_email": "owner@company.com",
-  "owner_password": "securepassword123",
-  "owner_full_name": "Company Owner"
-}
-
-# Get current tenant
-GET /api/v1/tenants/current
-Authorization: Bearer <token>
-
-# Update tenant branding
-PUT /api/v1/tenants/current
-Authorization: Bearer <token>
-{
-  "widget_primary_color": "#ff5733",
-  "widget_bot_name": "Support Bot",
-  "widget_welcome_message": "Hello! How can I help?"
-}
-
-# Get tenant statistics
-GET /api/v1/tenants/stats
-Authorization: Bearer <token>
-```
-
-#### User Management
-```bash
-# Create user (admin/owner only)
-POST /api/v1/users/
-Authorization: Bearer <admin_token>
-{
-  "email": "user@company.com",
-  "password": "password123",
-  "full_name": "Team Member",
-  "role": "member"
-}
-
-# List users
-GET /api/v1/users/
-Authorization: Bearer <admin_token>
-
-# Update user
-PUT /api/v1/users/{user_id}
-Authorization: Bearer <token>
-{
-  "full_name": "Updated Name",
-  "role": "admin"
-}
-```
-
-#### API Key Management
-```bash
-# Create API key
-POST /api/v1/api-keys/
-Authorization: Bearer <admin_token>
-{
-  "name": "Integration Key",
-  "scopes": ["query", "ingest"]
-}
-
-# List API keys
-GET /api/v1/api-keys/
-Authorization: Bearer <admin_token>
-
-# Revoke API key
-PUT /api/v1/api-keys/{key_id}
-Authorization: Bearer <admin_token>
-{
-  "is_active": false
-}
-```
-
-## Multi-Tenant Security
-
-AskDocs implements strict multi-tenant isolation:
-
-### Database Level
-- Every table includes `tenant_id` with proper indexing
-- All queries automatically filtered by tenant context
-- Foreign key constraints prevent cross-tenant references
-
-### API Level
-- JWT tokens include tenant context
-- API keys are scoped to specific tenants
-- All endpoints enforce tenant isolation via dependencies
-
-### Testing
-- Comprehensive tenant isolation tests
-- Cross-tenant access attempts are blocked
-- No data leakage between tenants
-
-### Role-Based Access Control
-- **Owner**: Full tenant control, user management, billing
-- **Admin**: User management, API keys, settings (no billing)
-- **Member**: Basic access (read-only for most features)
-
-## Database Schema
-
-The application uses a multi-tenant PostgreSQL schema with strict tenant isolation:
-
-- **tenants**: Core tenant information, billing, branding, limits
-- **users**: User accounts scoped to tenants
-- **api_keys**: API authentication with scopes and expiration
-- **documents**: Document metadata and processing status
-- **chunks**: Text chunks with citation metadata (vectors in Qdrant)
-- **conversations**: Chat sessions with external IDs for widget
-- **messages**: Individual messages with citations and confidence
-- **usage_events**: Billing and analytics tracking
-- **subscription_events**: Billing lifecycle events
-- **golden_qa**: Evaluation dataset per tenant
-- **eval_runs**: Evaluation results and metrics
-
-## Configuration
-
-All configuration is managed through environment variables with Pydantic validation:
-
-### Core Settings
-- `DATABASE_URL`: PostgreSQL connection string
-- `REDIS_URL`: Redis connection string  
-- `QDRANT_URL`: Qdrant vector database URL
-- `SECRET_KEY`: Application secret (min 32 chars)
-
-### AI/ML Settings
-- `OPENAI_API_KEY`: OpenAI API key
-- `PRIMARY_LLM_PROVIDER`: openai | anthropic
-- `PRIMARY_LLM_MODEL`: Model for generation
-- `FALLBACK_LLM_MODEL`: Fallback model
-
-### Retrieval Settings
-- `CHUNK_SIZE`: Text chunk size (default: 800)
-- `TOP_K_DENSE`: Dense retrieval results (default: 10)
-- `TOP_K_SPARSE`: BM25 results (default: 10)
-- `RRF_K`: Reciprocal Rank Fusion parameter (default: 60)
-
-### Rate Limiting & Security
-- `RATE_LIMIT_REQUESTS_PER_MINUTE`: Per-tenant rate limit
-- `JWT_ACCESS_TOKEN_EXPIRE_MINUTES`: Token expiration
-- `CORS_ORIGINS`: Allowed frontend origins
-
-See `.env.example` for complete configuration options.
-
-## Testing
-
-The project includes comprehensive testing with pytest:
+### **Run Tests**
 
 ```bash
+cd askdocs/backend
+
 # Run all tests
-pytest
+make test
 
-# Run with coverage
-pytest --cov=app --cov-report=html
-
-# Run specific test categories
-pytest tests/test_auth.py                    # Authentication tests
-pytest tests/test_tenant_isolation.py       # Tenant isolation tests
-pytest tests/test_api_keys.py               # API key tests
-pytest tests/test_user_management.py        # User management tests
-
-# Run with verbose output
-pytest -v
+# Specific modules
+make test-module2    # Authentication & multi-tenancy
+make test-module3    # Document ingestion
+make test-module4    # RAG pipeline
+make test-isolation  # Multi-tenant security
 ```
 
-Test categories:
-- **Authentication**: Login, tokens, password management
-- **Tenant Isolation**: Proves no cross-tenant data leakage
-- **API Keys**: Creation, scopes, expiration, revocation
-- **User Management**: Roles, permissions, CRUD operations
-- **Tenant Management**: Registration, settings, statistics
+## 🛠️ **Tech Stack**
 
-## Code Quality
+<table>
+<tr>
+<td width="50%">
 
-The project enforces high code quality standards:
+### **Backend**
+- **Framework:** FastAPI (async)
+- **Language:** Python 3.11+
+- **Database:** PostgreSQL + SQLAlchemy
+- **Cache:** Redis + ARQ jobs
+- **Vector DB:** Qdrant
+- **Search:** BM25 + OpenAI embeddings
+- **LLM:** OpenAI GPT-4o + Claude
+- **Auth:** JWT + API keys
 
-- **Type hints**: Full mypy strict mode
-- **Linting**: Ruff for fast Python linting
-- **Formatting**: Black for consistent code style
-- **Import sorting**: isort via ruff
-- **Pre-commit hooks**: Automatic code quality checks
+</td>
+<td width="50%">
 
+### **Frontend**
+- **Framework:** Next.js 15 + App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI:** Headless UI + Heroicons
+- **State:** Zustand
+- **Forms:** React Hook Form
+- **HTTP:** Axios with interceptors
+- **Notifications:** React Hot Toast
+
+</td>
+</tr>
+</table>
+
+## 🔒 **Security Features**
+
+- ✅ **Multi-tenant data isolation** - Strict separation at DB level
+- ✅ **Role-based access control** - Owner/Admin/Member permissions  
+- ✅ **JWT authentication** - Secure token-based auth
+- ✅ **API key management** - Scoped keys with expiration
+- ✅ **Rate limiting** - Per-tenant request limits
+- ✅ **Input validation** - Pydantic models with sanitization
+- ✅ **SQL injection prevention** - SQLAlchemy ORM protection
+
+## 📚 **API Documentation**
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/tenants/` | POST | Register new tenant |
+| `/api/v1/auth/login` | POST | User login |
+| `/api/v1/documents/upload` | POST | Upload documents |
+| `/api/v1/query/` | POST | Ask questions |
+| `/api/v1/documents/` | GET | List documents |
+| `/api/v1/analytics/` | GET | Usage analytics |
+| `/api/v1/health` | GET | System health |
+
+**📖 Full API docs:** http://localhost:8000/docs
+
+## 🚀 **Deployment**
+
+### **Railway (Recommended)**
 ```bash
-# Install pre-commit hooks
-make install-hooks
-
-# Run all quality checks
-make check
+railway login
+railway project create askdocs
+railway add postgresql redis
+railway deploy
 ```
 
-## Project Status
+### **Docker Compose**
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
 
-**Current Status**: Module 2 (Auth & Multi-tenancy) Complete ✅
+### **Manual Setup**
+1. Deploy backend to your cloud provider
+2. Set environment variables (DATABASE_URL, REDIS_URL, etc.)
+3. Run migrations: `alembic upgrade head`
+4. Deploy frontend with API_URL pointing to backend
 
-**Module 2 Deliverables**:
-- ✅ **Tenant Registration**: Public endpoint for tenant signup with owner user
-- ✅ **JWT Authentication**: Login, token refresh, password management
-- ✅ **API Key System**: Scoped keys with expiration and revocation
-- ✅ **User Management**: Full CRUD with role-based permissions (Owner/Admin/Member)
-- ✅ **Tenant Management**: Branding, limits, statistics, deletion
-- ✅ **Multi-tenant Isolation**: Strict data separation enforced at every level
-- ✅ **Tenant Context Middleware**: Automatic tenant resolution and logging
-- ✅ **Comprehensive Testing**: 100+ tests proving security and functionality
-- ✅ **Role-based Access Control**: Granular permissions for all operations
-- ✅ **Security Hardening**: Password policies, token validation, rate limiting
+## 🤝 **Contributing**
 
-**Key Security Features**:
-- Every database query automatically filtered by `tenant_id`
-- JWT tokens carry tenant context, validated on every request  
-- API keys scoped to tenants with configurable permissions
-- Cross-tenant access attempts blocked and logged
-- Role-based permissions enforced at the service layer
-- Comprehensive test suite proving no data leakage
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/amazing-feature`
+3. Make changes and add tests
+4. Run tests: `make test`
+5. Submit pull request
 
-**Next Steps**: Ready for Module 3 (Document Ingestion) implementation.
+## 📝 **License**
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🆘 **Support**
+
+- 🐛 **Issues:** [GitHub Issues](https://github.com/tusharpawar1217/LLM-RAG-Project/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/tusharpawar1217/LLM-RAG-Project/discussions)
 
 ---
 
-## License
+<div align="center">
 
-[License TBD]
+**⭐ Star this repository if you find it useful!**
 
-## Contributing
+Built with ❤️ for the AI community
 
-[Contributing guidelines TBD]#   A s k D o c s   -   P r o d u c t i o n - G r a d e   M u l t i - T e n a n t   R A G   S a a S 
- 
- 
+</div>
