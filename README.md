@@ -1,5 +1,35 @@
 # AskDocs - Production-Grade Multi-Tenant RAG SaaS
 
+A complete production-ready RAG (Retrieval-Augmented Generation) platform that enables small businesses to upload documents and get an embeddable chat widget that answers customer questions strictly from those documents, with verified citations and human handoff.
+
+## ✨ Key Features
+
+### 🚀 **Core RAG Pipeline**
+- **Multi-format Document Ingestion** - PDF, DOCX, Markdown, TXT, and URL crawling
+- **Hybrid Search** - Dense vector search + BM25 sparse search with RRF fusion  
+- **Multi-Provider LLM** - OpenAI GPT-4o + Claude with automatic fallback
+- **Citation Verification** - Ensures answer accuracy with confidence scoring
+- **Human Handoff** - Automatic detection when human help is needed
+
+### 🏢 **Production-Grade Multi-Tenancy**
+- **Strict Data Isolation** - Per-tenant collections, indices, and access controls
+- **Role-Based Access Control** - Owner, Admin, Member, Viewer roles
+- **API Key Management** - Programmatic access with scoped permissions  
+- **Usage Tracking** - Per-tenant resource monitoring and billing support
+
+### 🔧 **Enterprise Architecture**
+- **Async FastAPI** - High-performance async Python backend
+- **PostgreSQL + Redis** - Robust data storage and caching
+- **Qdrant Vector DB** - Scalable vector storage with tenant isolation
+- **ARQ Background Jobs** - Reliable async document processing
+- **Docker Compose** - Complete development and deployment setup
+
+### 📊 **Observability & Monitoring**
+- **Structured Logging** - JSON logs with correlation IDs
+- **Health Checks** - Component-level health monitoring
+- **Error Tracking** - Comprehensive error handling and reporting
+- **Performance Metrics** - Response times, success rates, resource usage
+
 AskDocs is a production-ready, multi-tenant Software-as-a-Service platform where small businesses can upload documents and get an embeddable chat widget that answers customer questions strictly from those documents, with verified citations and human handoff capabilities.
 
 ## Architecture Overview
@@ -449,5 +479,6 @@ make check
 
 ## Contributing
 
-[Contributing guidelines TBD]#   A s k D o c s   -   P r o d u c t i o n - G r a d e   M u l t i - T e n a n t   R A G   S a a S  
+[Contributing guidelines TBD]#   A s k D o c s   -   P r o d u c t i o n - G r a d e   M u l t i - T e n a n t   R A G   S a a S 
+ 
  

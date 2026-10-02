@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import api_keys, auth, documents, health, tenants, users
+from app.api.v1 import api_keys, auth, documents, health, query, tenants, users
 
 router = APIRouter()
 
@@ -13,3 +13,4 @@ router.include_router(tenants.router, prefix="/tenants", tags=["tenants"])
 router.include_router(users.router, prefix="/users", tags=["users"])
 router.include_router(api_keys.router, prefix="/api-keys", tags=["api-keys"])
 router.include_router(documents.router, prefix="/documents", tags=["documents"])
+router.include_router(query.router, prefix="/query", tags=["query"])

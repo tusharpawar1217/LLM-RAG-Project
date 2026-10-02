@@ -1,6 +1,6 @@
 # AskDocs Backend Makefile
 
-.PHONY: help install dev test test-module2 test-module3 test-isolation lint format check migrations upgrade downgrade clean docker-build docker-up docker-down logs demo init-test worker
+.PHONY: help install dev test test-module2 test-module3 test-module4 test-isolation lint format check migrations upgrade downgrade clean docker-build docker-up docker-down logs demo demo-module3 demo-module4 init-test worker
 
 # Default target
 help:
@@ -11,6 +11,7 @@ help:
 	@echo "  test          - Run tests"
 	@echo "  test-module2  - Run Module 2 comprehensive tests"
 	@echo "  test-module3  - Run Module 3 ingestion tests"
+	@echo "  test-module4  - Run Module 4 retrieval & generation tests"
 	@echo "  test-isolation- Run tenant isolation tests (critical)"
 	@echo "  lint          - Run linting (ruff, mypy)"
 	@echo "  format        - Format code (black, ruff)"
@@ -24,6 +25,8 @@ help:
 	@echo "  docker-down   - Stop Docker services"
 	@echo "  logs          - Show Docker logs"
 	@echo "  demo          - Run Module 2 demo"
+	@echo "  demo-module3  - Run Module 3 demo"
+	@echo "  demo-module4  - Run Module 4 demo"
 	@echo "  init-test     - Initialize DB and run basic tests"
 
 # Development
@@ -45,6 +48,9 @@ test-module2:
 
 test-module3:
 	pytest tests/test_ingestion/ -v -s
+
+test-module4:
+	pytest tests/test_generation/ tests/test_retrieval/ -v -s
 
 test-isolation:
 	pytest tests/test_tenant_isolation.py -v -s
@@ -89,6 +95,12 @@ docker-logs:
 # Demo & Testing
 demo:
 	cd .. && python demo_module2.py
+
+demo-module3:
+	python demo_module3.py
+
+demo-module4:
+	python demo_module4.py
 
 init-test:
 	python init_and_test.py
