@@ -142,48 +142,52 @@ graph TB
 
 ## 🚀 **Quick Start**
 
-### **Option 1: Docker (Recommended)**
+### **Prerequisites**
+- Docker and Docker Compose
+- OpenAI API key
+- (Optional) Stripe API keys for billing
 
+### **1. Clone & Setup**
 ```bash
-# Clone the repository
-git clone https://github.com/tusharpawar1217/LLM-RAG-Project.git
-cd LLM-RAG-Project/askdocs
+git clone https://github.com/yourusername/askdocs.git
+cd askdocs
 
-# Set up environment
+# Copy environment file and configure
 cp .env.example .env
 # Edit .env with your API keys
-
-# Start all services
-docker compose up -d
-
-# Initialize database and billing plans
-docker compose exec backend python app/db/init_billing.py
-
-# Verify setup
-curl http://localhost:8000/api/v1/health
 ```
 
-### **Option 2: Local Development**
-
+### **2. Start Services**
 ```bash
-# Backend setup
-cd askdocs/backend
-pip install -r requirements.txt
-make docker-up     # Start PostgreSQL, Redis, Qdrant
-make upgrade       # Run migrations
-make dev          # Start API server
+# Start all services with Docker
+docker compose up -d
 
-# Frontend setup (separate terminal)
-cd askdocs/frontend
-npm install
-npm run dev       # Start Next.js dashboard
+# Wait for services to be ready (takes ~30 seconds)
+docker compose logs -f
+```
+
+### **3. Initialize Database**
+```bash
+# Run database migrations
+docker compose exec backend alembic upgrade head
+
+# Initialize billing plans (optional)
+docker compose exec backend python app/db/init_billing.py
+```
+
+### **4. Verify Setup**
+```bash
+# Check API health
+curl http://localhost:8000/api/v1/health
+
+# Check frontend
+curl http://localhost:3000
 ```
 
 **🎉 That's it!**
-- Backend API: http://localhost:8000
-- Frontend Dashboard: http://localhost:3000
-- API Documentation: http://localhost:8000/docs
-- Monitoring: http://localhost:8000/api/v1/monitoring/metrics/prometheus
+- **Backend API:** http://localhost:8000
+- **Frontend Dashboard:** http://localhost:3000
+- **API Documentation:** http://localhost:8000/docs
 
 ## 📋 **Current Status & Modules**
 

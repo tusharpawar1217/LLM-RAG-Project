@@ -1,0 +1,153 @@
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js
+.next/
+out/
+
+# Production build
+build/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation files (excluding main README)
+LOCAL_SETUP.md
+QUICK_START.md
+MODULE*.md
+COMPLETION*.md
+
+# Demo and test files
+demo_*.py
+check_*.py
+test_local_*.py
+
+# Shell scripts and batch files
+*.sh
+*.bat
+
+# Backup files
+*.bak
+*.backup
+backups/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker volumes
+postgres_data/
+redis_data/
+qdrant_data/
+
+# Uploads and temp files
+uploads/
+temp/
+tmp/
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+
+# Monitoring data
+prometheus_data/
+grafana_data/
+loki_data/
+
+# Application specific
+.env.prod
+config/local.json
+secrets/

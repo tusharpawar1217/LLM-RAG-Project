@@ -4,17 +4,17 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
+    container_name: askdocs_postgres_dev
     environment:
-      POSTGRES_DB: askdocs
-      POSTGRES_USER: askdocs
-      POSTGRES_PASSWORD: askdocs_password
+      POSTGRES_DB: askdocs_dev
+      POSTGRES_USER: askdocs_user
+      POSTGRES_PASSWORD: askdocs123
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U askdocs -d askdocs"]
+      test: ["CMD-SHELL", "pg_isready -U askdocs_user -d askdocs_dev"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,6 +22,7 @@ services:
   # Redis Cache & Queue
   redis:
     image: redis:7-alpine
+    container_name: askdocs_redis_dev
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
@@ -35,7 +36,8 @@ services:
 
   # Qdrant Vector Database
   qdrant:
-    image: qdrant/qdrant:v1.7.3
+    image: qdrant/qdrant:latest
+    container_name: askdocs_qdrant_dev
     environment:
       QDRANT__SERVICE__HTTP_PORT: 6333
       QDRANT__SERVICE__GRPC_PORT: 6334
@@ -50,74 +52,14 @@ services:
       timeout: 5s
       retries: 5
 
-  # FastAPI Backend
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://askdocs:askdocs_password@postgres:5432/askdocs
-      - REDIS_URL=redis://redis:6379/0
-      - QDRANT_URL=http://qdrant:6333
-    env_file:
-      - ./backend/.env
-    volumes:
-      - ./backend:/app
-      - ./data:/app/data
-    ports:
-      - "8000:8000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-    command: >
-      sh -c "
-        # Wait for database migrations
-        alembic upgrade head &&
-        # Start the application
-        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-      "
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  # ARQ Worker
-  worker:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://askdocs:askdocs_password@postgres:5432/askdocs
-      - REDIS_URL=redis://redis:6379/0
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_PASSWORD=
-      - REDIS_DB=0
-      - QDRANT_URL=http://qdrant:6333
-    env_file:
-      - ./backend/.env
-    volumes:
-      - ./backend:/app
-      - ./data:/app/data
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      qdrant:
-        condition: service_healthy
-    command: python app/worker.py
-
 volumes:
   postgres_data:
+    driver: local
   redis_data:
+    driver: local
   qdrant_data:
+    driver: local
 
 networks:
   default:
-    name: askdocs_network
+    name: askdocs_dev_network
