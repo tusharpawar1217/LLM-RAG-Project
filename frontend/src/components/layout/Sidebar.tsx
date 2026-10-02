@@ -11,6 +11,7 @@ import {
   ChartBarIcon,
   Cog6ToothIcon,
   KeyIcon,
+  CreditCardIcon,
   XMarkIcon,
   Bars3Icon,
 } from '@heroicons/react/24/outline'
@@ -27,6 +28,7 @@ const navigation = [
   { name: 'Chat', href: '/dashboard/chat', icon: ChatBubbleLeftRightIcon },
   { name: 'Analytics', href: '/dashboard/analytics', icon: ChartBarIcon },
   { name: 'API Keys', href: '/dashboard/api-keys', icon: KeyIcon },
+  { name: 'Billing', href: '/dashboard/billing', icon: CreditCardIcon },
   { name: 'Settings', href: '/dashboard/settings', icon: Cog6ToothIcon },
 ]
 
