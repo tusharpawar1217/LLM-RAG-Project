@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskDocs Widget Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f9fafb;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1 {
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .demo-section h3 {
+            margin-top: 0;
+            color: #374151;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background: #2563eb;
+        }
+        
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        input, select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .code {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin-top: 16px;
+        }
+        
+        .status {
+            padding: 12px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .check {
+            color: #10b981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AskDocs Widget Demo</h1>
+        <p class="subtitle">Interactive demo of the embeddable chat widget</p>
+        
+        <!-- Widget Status -->
+        <div class="demo-section">
+            <h3>Widget Status</h3>
+            <div id="status" class="status info">
+                Initializing widget...
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="demo-section">
+            <h3>Widget Controls</h3>
+            <div class="controls">
+                <button id="open-widget">Open Widget</button>
+                <button id="close-widget">Close Widget</button>
+                <button id="toggle-widget">Toggle Widget</button>
+                <button id="send-message">Send Test Message</button>
+                <button id="clear-messages">Clear Messages</button>
+            </div>
+        </div>
+        
+        <!-- Configuration -->
+        <div class="demo-section">
+            <h3>Configuration Options</h3>
+            <div class="controls">
+                <label>
+                    API Key:
+                    <input type="text" id="api-key" placeholder="ask_..." value="demo_key_123">
+                </label>
+                <label>
+                    API URL:
+                    <input type="text" id="api-url" value="http://localhost:8000">
+                </label>
+                <label>
+                    Bot Name:
+                    <input type="text" id="bot-name" value="AI Assistant">
+                </label>
+                <label>
+                    Primary Color:
+                    <input type="color" id="primary-color" value="#3b82f6">
+                </label>
+                <label>
+                    Position:
+                    <select id="position">
+                        <option value="bottom-right">Bottom Right</option>
+                        <option value="bottom-left">Bottom Left</option>
+                        <option value="top-right">Top Right</option>
+                        <option value="top-left">Top Left</option>
+                    </select>
+                </label>
+                <button id="update-config">Update Config</button>
+                <button id="recreate-widget">Recreate Widget</button>
+            </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="demo-section">
+            <h3>Widget Features</h3>
+            <ul class="feature-list">
+                <li><span class="check">✓</span> Embeddable JavaScript widget</li>
+                <li><span class="check">✓</span> Customizable branding and colors</li>
+                <li><span class="check">✓</span> Responsive design (mobile-friendly)</li>
+                <li><span class="check">✓</span> Real-time chat interface</li>
+                <li><span class="check">✓</span> Citation display with confidence scores</li>
+                <li><span class="check">✓</span> API key authentication</li>
+                <li><span class="check">✓</span> Event system for integration</li>
+                <li><span class="check">✓</span> Conversation persistence</li>
+                <li><span class="check">✓</span> Multiple positioning options</li>
+                <li><span class="check">✓</span> Loading states and error handling</li>
+            </ul>
+        </div>
+        
+        <!-- Integration Code -->
+        <div class="demo-section">
+            <h3>Integration Code</h3>
+            <p>Add this to your website to embed the widget:</p>
+            <div class="code" id="integration-code">
+&lt;script src="https://cdn.askdocs.ai/widget/v1/askdocs-widget.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const widget = new AskDocsWidget({
+    apiKey: 'your_api_key_here',
+    apiUrl: 'https://api.askdocs.ai',
+    botName: 'Support Bot',
+    primaryColor: '#3b82f6',
+    position: 'bottom-right',
+    welcomeMessage: 'Hi! How can I help you today?',
+    placeholder: 'Ask a question...',
+    showBranding: true,
+    debug: false
+  });
+  
+  // Optional: Listen to events
+  widget.addEventListener('message:received', (data) => {
+    console.log('Bot response:', data.message);
+  });
+&lt;/script&gt;
+            </div>
+        </div>
+        
+        <!-- Advanced Usage -->
+        <div class="demo-section">
+            <h3>Advanced Usage</h3>
+            <div class="code">
+// Programmatic control
+widget.open();
+widget.close();
+widget.sendMessage('Hello!');
+
+// Get widget state
+const messages = widget.getMessages();
+const state = widget.getState();
+
+// Update configuration
+widget.updateConfig({
+  primaryColor: '#ff6b6b',
+  botName: 'New Bot Name'
+});
+
+// Event listeners
+widget.addEventListener('widget:ready', () => {
+  console.log('Widget is ready!');
+});
+
+widget.addEventListener('error', (data) => {
+  console.error('Widget error:', data.error);
+});
+
+// Cleanup
+widget.destroy();
+            </div>
+        </div>
+        
+        <!-- Event Log -->
+        <div class="demo-section">
+            <h3>Event Log</h3>
+            <div id="event-log" class="code" style="max-height: 200px; overflow-y: auto;">
+                <!-- Events will be logged here -->
+            </div>
+            <button id="clear-log" style="margin-top: 12px;">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Widget Script -->
+    <script src="askdocs-widget.js"></script>
+    <script>
+        let widget = null;
+        let eventLog = [];
+        
+        // DOM elements
+        const statusEl = document.getElementById('status');
+        const eventLogEl = document.getElementById('event-log');
+        
+        // Initialize widget
+        function initializeWidget() {
+            try {
+                const config = {
+                    apiKey: document.getElementById('api-key').value,
+                    apiUrl: document.getElementById('api-url').value,
+                    botName: document.getElementById('bot-name').value,
+                    primaryColor: document.getElementById('primary-color').value,
+                    position: document.getElementById('position').value,
+                    welcomeMessage: `Hi! I'm ${document.getElementById('bot-name').value}. How can I help?`,
+                    debug: true
+                };
+                
+                widget = new AskDocsWidget(config);
+                setupEventListeners();
+                updateStatus('Widget initialized successfully', 'success');
+                logEvent('Widget initialized', config);
+            } catch (error) {
+                updateStatus(`Failed to initialize: ${error.message}`, 'error');
+                logEvent('Initialization error', error);
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            if (!widget) return;
+            
+            widget.addEventListener('widget:ready', (data) => {
+                logEvent('widget:ready', data);
+            });
+            
+            widget.addEventListener('widget:open', () => {
+                logEvent('widget:open');
+            });
+            
+            widget.addEventListener('widget:close', () => {
+                logEvent('widget:close');
+            });
+            
+            widget.addEventListener('message:sent', (data) => {
+                logEvent('message:sent', data.message.content);
+            });
+            
+            widget.addEventListener('message:received', (data) => {
+                logEvent('message:received', {
+                    content: data.message.content.substring(0, 100) + '...',
+                    confidence: data.message.confidence,
+                    citations: data.message.citations?.length || 0
+                });
+            });
+            
+            widget.addEventListener('error', (data) => {
+                logEvent('error', data.error);
+                updateStatus(`Error: ${data.error}`, 'error');
+            });
+        }
+        
+        // Update status display
+        function updateStatus(message, type = 'info') {
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+        }
+        
+        // Log events
+        function logEvent(event, data = null) {
+            const timestamp = new Date().toLocaleTimeString();
+            eventLog.unshift({
+                timestamp,
+                event,
+                data
+            });
+            
+            // Keep only last 50 events
+            if (eventLog.length > 50) {
+                eventLog = eventLog.slice(0, 50);
+            }
+            
+            updateEventLog();
+        }
+        
+        // Update event log display
+        function updateEventLog() {
+            const logHtml = eventLog.map(entry => {
+                const dataStr = entry.data ? ` - ${JSON.stringify(entry.data, null, 2)}` : '';
+                return `[${entry.timestamp}] ${entry.event}${dataStr}`;
+            }).join('\n');
+            
+            eventLogEl.textContent = logHtml || 'No events yet...';
+        }
+        
+        // Button handlers
+        document.getElementById('open-widget').addEventListener('click', () => {
+            if (widget) widget.open();
+        });
+        
+        document.getElementById('close-widget').addEventListener('click', () => {
+            if (widget) widget.close();
+        });
+        
+        document.getElementById('toggle-widget').addEventListener('click', () => {
+            if (widget) widget.toggle();
+        });
+        
+        document.getElementById('send-message').addEventListener('click', () => {
+            if (widget) widget.sendMessage('This is a test message from the demo page!');
+        });
+        
+        document.getElementById('clear-messages').addEventListener('click', () => {
+            if (widget) {
+                widget.clearMessages();
+                logEvent('messages:cleared');
+            }
+        });
+        
+        document.getElementById('update-config').addEventListener('click', () => {
+            if (widget) {
+                const newConfig = {
+                    botName: document.getElementById('bot-name').value,
+                    primaryColor: document.getElementById('primary-color').value,
+                };
+                widget.updateConfig(newConfig);
+                logEvent('config:updated', newConfig);
+            }
+        });
+        
+        document.getElementById('recreate-widget').addEventListener('click', () => {
+            if (widget) {
+                widget.destroy();
+            }
+            initializeWidget();
+        });
+        
+        document.getElementById('clear-log').addEventListener('click', () => {
+            eventLog = [];
+            updateEventLog();
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeWidget();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "askdocs-widget",
+  "version": "1.0.0",
+  "description": "Embeddable chat widget for AskDocs",
+  "main": "dist/askdocs-widget.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "serve": "webpack serve --mode=development",
+    "lint": "eslint src/**/*.{js,ts}",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["chat", "widget", "rag", "ai", "embeddable"],
+  "author": "AskDocs",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.9.4",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "ts-loader": "^9.5.1",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "html-webpack-plugin": "^5.5.3",
+    "eslint": "^8.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0"
+  }
+}
