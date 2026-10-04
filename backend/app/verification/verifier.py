@@ -485,3 +485,4 @@ Score (number only):
             logger.info("Citation verifier closed")
         except Exception as e:
             logger.warning(f"Error closing citation verifier: {e}")
+

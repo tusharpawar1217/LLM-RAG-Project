@@ -473,3 +473,4 @@ async def test_member_cannot_list_users(
     
     assert response.status_code == 403
     assert "Insufficient permissions" in response.json()["detail"]
+

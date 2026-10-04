@@ -301,3 +301,4 @@ class TestLLMService:
         
         # Close methods should be called if they exist
         # Note: Actual OpenAI/Anthropic clients might not have close methods
+

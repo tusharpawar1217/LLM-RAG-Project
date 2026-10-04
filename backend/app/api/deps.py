@@ -199,3 +199,4 @@ AdminOrOwner = Annotated[User, Depends(require_user_role(["owner", "admin"]))]
 QueryAPIKey = Annotated[tuple[Tenant, APIKey], Depends(require_api_key_scope("query"))]
 IngestAPIKey = Annotated[tuple[Tenant, APIKey], Depends(require_api_key_scope("ingest"))]
 AdminAPIKey = Annotated[tuple[Tenant, APIKey], Depends(require_api_key_scope("admin"))]
+

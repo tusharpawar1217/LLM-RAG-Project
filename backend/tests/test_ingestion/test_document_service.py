@@ -11,8 +11,8 @@ from uuid import uuid4
 import pytest
 
 from app.core.errors import DocumentError
-from app.models.document import DocumentStatus
-from app.models.tenant import Tenant
+from app.db.models import DocumentStatus
+from app.db.models import Tenant
 from app.services.document import DocumentService
 
 
@@ -452,3 +452,4 @@ class TestDocumentService:
         await self.service.close()
         
         self.service.pipeline.close.assert_called_once()
+

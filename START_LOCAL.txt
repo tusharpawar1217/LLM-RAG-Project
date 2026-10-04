@@ -1,0 +1,45 @@
+======================================================================
+         🚀 AskDocs - Local Development Quick Start
+======================================================================
+
+STEP 1: Start Docker Desktop
+------------------------------
+⚠️  IMPORTANT: Open Docker Desktop app and wait for it to be ready!
+   Check that the Docker icon in system tray shows "Docker Desktop is running"
+
+STEP 2: Start Infrastructure Services (30 seconds)
+----------------------------------------------------
+cd askdocs
+docker-compose up -d postgres redis qdrant
+
+Wait for services to start, then check:
+docker-compose ps
+
+STEP 3: Setup Backend (Terminal 1)
+------------------------------------
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+alembic upgrade head
+python app/db/init_billing.py
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+STEP 4: Setup Frontend (Terminal 2)
+-------------------------------------
+cd frontend
+npm install
+npm run dev
+
+======================================================================
+🌐 Access URLs:
+   • Dashboard:  http://localhost:3000
+   • API:        http://localhost:8000
+   • API Docs:   http://localhost:8000/docs
+   • Health:     http://localhost:8000/api/v1/health
+
+🧪 Quick Test:
+   curl http://localhost:8000/api/v1/health
+
+⚠️  Remember to add your OpenAI API key to .env file!
+======================================================================

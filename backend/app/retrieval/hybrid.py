@@ -463,3 +463,4 @@ class HybridRetriever:
             logger.info("Hybrid retriever closed")
         except Exception as e:
             logger.warning(f"Error closing hybrid retriever: {e}")
+

@@ -16,14 +16,14 @@ from pathlib import Path
 from uuid import uuid4
 
 from app.core.config import settings
-from app.core.database import get_session
+from app.db.base import get_db as get_session
 from app.core.logging import setup_logging, get_logger
 from app.generation.generator import AnswerGenerator
 from app.generation.llm import LLMService
 from app.ingestion.chunking import DocumentChunk
 from app.ingestion.pipeline import IngestionPipeline
-from app.models.document import Document, DocumentStatus
-from app.models.tenant import Tenant
+from app.db.models import Document, DocumentStatus
+from app.db.models import Tenant
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.sparse import bm25_manager
 from app.services.query_service import QueryService
@@ -718,3 +718,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+

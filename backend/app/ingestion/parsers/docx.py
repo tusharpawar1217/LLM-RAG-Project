@@ -203,3 +203,4 @@ class DocxParser(BaseParser):
                 continue
         
         return table_data
+

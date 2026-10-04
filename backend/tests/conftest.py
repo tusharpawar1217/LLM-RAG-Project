@@ -107,3 +107,4 @@ async def test_tenant(db_session) -> Tenant:
     await db_session.refresh(tenant)
     
     return tenant
+

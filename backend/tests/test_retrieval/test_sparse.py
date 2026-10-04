@@ -336,3 +336,4 @@ class TestBM25Manager:
         assert 'tenants' in health
         assert str(tenant1) in health['tenants']
         assert str(tenant2) in health['tenants']
+

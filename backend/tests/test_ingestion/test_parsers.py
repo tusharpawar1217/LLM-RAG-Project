@@ -315,3 +315,4 @@ class TestURLCrawler:
         """Test parsing with timeout."""
         # Test with a URL that would timeout
         pytest.skip("Requires network timeout setup")
+

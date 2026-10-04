@@ -309,3 +309,4 @@ class UrlCrawler(BaseParser):
             return all([result.scheme, result.netloc]) and result.scheme in ['http', 'https']
         except Exception:
             return False
+

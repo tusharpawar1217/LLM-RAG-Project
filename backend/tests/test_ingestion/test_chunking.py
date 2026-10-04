@@ -257,3 +257,4 @@ Additional content in subsection 2.1 with more examples and use cases.
         # Verify chunk indices
         for i, chunk in enumerate(chunks):
             assert chunk.chunk_index == i
+

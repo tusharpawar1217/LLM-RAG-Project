@@ -287,3 +287,4 @@ class TxtParser(BaseParser):
             features['has_emails'] = True
         
         return features
+

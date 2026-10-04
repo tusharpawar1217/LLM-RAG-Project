@@ -404,3 +404,4 @@ async def test_tenant_stats_isolation(
     
     # Stats should be completely isolated
     assert stats_a != stats_b
+

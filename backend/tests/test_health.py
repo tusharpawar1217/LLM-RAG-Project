@@ -43,3 +43,4 @@ async def test_root_health_check(client: AsyncClient):
     
     assert data["status"] == "healthy"
     assert data["app"] == "AskDocs"
+

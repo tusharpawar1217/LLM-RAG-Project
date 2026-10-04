@@ -8,7 +8,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, validator
 
-from app.models.document import DocumentStatus as DocumentStatusEnum
+from app.db.models import DocumentStatus as DocumentStatusEnum
 
 
 class DocumentCreate(BaseModel):
@@ -204,3 +204,4 @@ class HealthCheckResponse(BaseModel):
     components: Dict[str, Any] = Field(default_factory=dict)
     error: Optional[str] = None
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+

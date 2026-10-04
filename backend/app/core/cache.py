@@ -499,3 +499,4 @@ async def get_cached_document_embeddings(
     )
     
     return await embedding_cache.get(key)
+

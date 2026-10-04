@@ -160,3 +160,4 @@ class BaseVectorStore(ABC):
             Dictionary with health status information
         """
         pass
+

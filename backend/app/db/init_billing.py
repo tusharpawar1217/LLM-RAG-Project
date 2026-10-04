@@ -1,7 +1,7 @@
 """Initialize billing plans in database."""
 
 from sqlalchemy.orm import Session
-from app.core.database import SessionLocal
+from app.db.base import SessionLocal
 from app.core.billing_config import PLAN_CONFIGS
 from app.models.billing import Plan, PlanTier
 from app.core.logging import get_logger
@@ -76,3 +76,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

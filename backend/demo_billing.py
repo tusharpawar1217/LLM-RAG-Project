@@ -18,7 +18,7 @@ backend_dir = Path(__file__).parent
 sys.path.insert(0, str(backend_dir))
 
 from sqlalchemy.orm import Session
-from app.core.database import SessionLocal
+from app.db.base import SessionLocal
 from app.core.logging import setup_logging, get_logger
 from app.models.billing import Plan, Subscription, PlanTier, BillingCycle, SubscriptionStatus
 from app.services.billing_service import BillingService, PlanLimitExceeded
@@ -337,3 +337,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+

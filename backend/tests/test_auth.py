@@ -323,3 +323,4 @@ async def test_logout(client: AsyncClient):
     
     assert response.status_code == 200
     assert response.json()["message"] == "Logged out successfully"
+

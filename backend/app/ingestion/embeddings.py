@@ -319,3 +319,4 @@ class EmbeddingService:
                 "error": str(e),
                 "model": self.model,
             }
+

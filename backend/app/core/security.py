@@ -194,3 +194,5 @@ def generate_tenant_slug(name: str) -> str:
 def generate_external_id() -> str:
     """Generate a unique external ID for conversations/resources."""
     return secrets.token_urlsafe(16)
+
+

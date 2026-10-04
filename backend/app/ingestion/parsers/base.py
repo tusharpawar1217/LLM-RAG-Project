@@ -146,3 +146,4 @@ class BaseParser(ABC):
             metadata["file_extension"] = filename.split('.')[-1].lower()
         
         return metadata
+

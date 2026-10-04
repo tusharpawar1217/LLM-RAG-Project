@@ -72,3 +72,4 @@ class APIKeyUsage(BaseModel):
     requests_last_30_days: int
     last_used_at: datetime | None
     most_used_endpoint: str | None
+

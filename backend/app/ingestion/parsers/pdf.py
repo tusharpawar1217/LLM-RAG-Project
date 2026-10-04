@@ -127,3 +127,4 @@ class PdfParser(BaseParser):
             logger.warning("Failed to extract PDF metadata", error=str(e))
         
         return info
+

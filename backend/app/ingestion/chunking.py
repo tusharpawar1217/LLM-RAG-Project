@@ -4,7 +4,7 @@ Document chunking service using LangChain text splitters.
 
 from typing import Any
 
-from langchain.text_splitter import (
+from langchain_text_splitters import (
     MarkdownHeaderTextSplitter,
     RecursiveCharacterTextSplitter,
 )
@@ -372,3 +372,4 @@ class ChunkingService:
             logger.info(f"Average chunk overlap: {avg_overlap} characters")
         
         return True
+

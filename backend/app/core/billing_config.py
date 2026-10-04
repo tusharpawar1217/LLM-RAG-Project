@@ -258,3 +258,4 @@ def calculate_llm_cost(input_tokens: int, output_tokens: int, model: str = "gpt-
 def calculate_storage_cost(size_mb: float) -> float:
     """Calculate storage cost per month."""
     return size_mb * COST_RATES["storage_cost_per_mb_per_month"]
+

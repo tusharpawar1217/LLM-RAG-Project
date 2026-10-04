@@ -430,3 +430,4 @@ Response (JSON only):
             
         except Exception as e:
             logger.warning(f"Error closing LLM service: {e}")
+

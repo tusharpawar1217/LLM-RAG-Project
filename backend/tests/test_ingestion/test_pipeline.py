@@ -11,8 +11,8 @@ import pytest
 
 from app.core.errors import IngestionError, ParsingError
 from app.ingestion.pipeline import IngestionPipeline
-from app.models.document import Document, DocumentStatus
-from app.models.tenant import Tenant
+from app.db.models import Document, DocumentStatus
+from app.db.models import Tenant
 
 
 @pytest.fixture
@@ -435,3 +435,4 @@ class TestIngestionPipeline:
             
         finally:
             temp_path.unlink()
+

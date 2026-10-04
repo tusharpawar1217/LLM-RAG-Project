@@ -292,3 +292,4 @@ class TestEmbeddingService:
         for embeddings in results:
             assert len(embeddings) == 1
             assert len(embeddings[0]) == 1536
+

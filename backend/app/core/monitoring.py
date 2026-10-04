@@ -378,7 +378,7 @@ def setup_monitoring():
     # Register basic health checks
     async def database_check():
         """Check database connectivity."""
-        from app.core.database import SessionLocal
+        from app.db.base import SessionLocal
         try:
             db = SessionLocal()
             db.execute("SELECT 1")
@@ -411,3 +411,4 @@ def setup_monitoring():
     health_checker.register_check("vector_db", vector_db_check)
     
     logger.info("Monitoring setup completed")
+

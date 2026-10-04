@@ -419,3 +419,4 @@ async def test_admin_cannot_delete_tenant(
     
     assert response.status_code == 403
     assert "Insufficient permissions" in response.json()["detail"]
+

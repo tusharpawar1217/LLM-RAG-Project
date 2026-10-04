@@ -140,3 +140,4 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             # If Redis is down, don't block requests but log the error
             logger.error("Rate limiting error", error=str(e))
             return await call_next(request)
+

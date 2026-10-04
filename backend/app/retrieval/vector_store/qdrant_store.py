@@ -395,3 +395,4 @@ class QdrantVectorStore(BaseVectorStore):
             logger.info("Qdrant client closed")
         except Exception as e:
             logger.warning(f"Error closing Qdrant client: {e}")
+

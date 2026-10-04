@@ -57,3 +57,4 @@ def verify_content_integrity(content: str, expected_hash: str) -> bool:
     """
     actual_hash = compute_content_hash(content)
     return actual_hash == expected_hash
+

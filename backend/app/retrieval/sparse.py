@@ -438,3 +438,4 @@ class BM25Manager:
 
 # Global BM25 manager instance
 bm25_manager = BM25Manager()
+

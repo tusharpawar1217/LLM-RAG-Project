@@ -8,7 +8,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.core.logging import get_logger
 from app.services.billing_service import BillingService, PlanLimitExceeded
-from app.core.database import SessionLocal
+from app.db.base import SessionLocal
 
 logger = get_logger(__name__)
 
@@ -195,3 +195,4 @@ class BillingEnforcementMiddleware(BaseHTTPMiddleware):
             )
         finally:
             db.close()
+

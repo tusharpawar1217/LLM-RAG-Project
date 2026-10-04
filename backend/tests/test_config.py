@@ -81,3 +81,4 @@ def test_plan_limits():
     # Unknown tier should return starter limits
     unknown_limits = settings.get_plan_limits("unknown")
     assert unknown_limits == starter_limits
+

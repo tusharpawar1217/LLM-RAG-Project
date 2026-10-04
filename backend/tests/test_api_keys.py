@@ -391,3 +391,4 @@ async def test_expired_api_key(
     
     with pytest.raises(Exception):  # Should raise AuthenticationError
         await auth_service.authenticate_api_key(full_key)
+

@@ -76,3 +76,5 @@ def get_logger(name: str | None = None) -> structlog.stdlib.BoundLogger:
 
 # Initialize logging on import
 configure_logging()
+
+

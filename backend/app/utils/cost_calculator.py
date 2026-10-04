@@ -192,3 +192,4 @@ class CostCalculator:
             },
             "note": "Prices are subject to change. Check OpenAI pricing page for latest rates.",
         }
+

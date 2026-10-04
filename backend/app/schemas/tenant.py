@@ -135,3 +135,4 @@ class TenantLimits(BaseModel):
     # Plan limits
     max_documents: int
     max_messages_per_month: int
+
