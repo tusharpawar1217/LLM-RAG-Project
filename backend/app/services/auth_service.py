@@ -243,3 +243,4 @@ class AuthService:
         await self.db.commit()
         
         logger.info("Password changed", user_id=str(user.id))
+

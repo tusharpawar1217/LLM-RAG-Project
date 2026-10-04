@@ -7,12 +7,12 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from app.db.base import get_db
 from app.core.deps import get_current_tenant, get_current_user
 from app.core.logging import get_logger
 from app.models.billing import PlanTier, BillingCycle
-from app.models.tenant import Tenant
-from app.models.user import User
+from app.db.models import Tenant
+from app.db.models import User
 from app.services.billing_service import BillingService, PlanLimitExceeded
 from app.services.stripe_service import stripe_service
 
@@ -417,3 +417,4 @@ async def plan_limit_exceeded_handler(request: Request, exc: PlanLimitExceeded):
             "message": str(exc)
         }
     )
+

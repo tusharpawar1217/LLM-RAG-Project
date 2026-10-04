@@ -12,7 +12,7 @@ from app.models.billing import (
     Subscription, Invoice, Payment, Plan, 
     SubscriptionStatus, PaymentStatus, BillingCycle
 )
-from app.models.tenant import Tenant
+from app.db.models import Tenant
 
 logger = get_logger(__name__)
 
@@ -378,3 +378,5 @@ class StripeService:
 
 # Singleton instance
 stripe_service = StripeService()
+
+

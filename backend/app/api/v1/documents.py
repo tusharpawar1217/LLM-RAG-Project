@@ -11,9 +11,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_tenant_user, get_session
 from app.core.errors import DocumentError, ValidationError
 from app.core.logging import get_logger
-from app.models.document import DocumentStatus
-from app.models.tenant import Tenant
-from app.models.user import User
+from app.db.models import DocumentStatus
+from app.db.models import Tenant
+from app.db.models import User
 from app.schemas.document import (
     DocumentCreate,
     DocumentInDB,
@@ -403,3 +403,4 @@ async def get_tenant_document_statistics(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error"
         )
+

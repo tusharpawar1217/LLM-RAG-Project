@@ -1,6 +1,6 @@
 {
   "name": "askdocs-widget",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Embeddable chat widget for AskDocs",
   "main": "dist/askdocs-widget.js",
   "scripts": {

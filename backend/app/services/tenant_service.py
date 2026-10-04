@@ -328,3 +328,4 @@ class TenantService:
         await self.db.commit()
         
         logger.info("Tenant deleted", tenant_id=str(tenant.id))
+

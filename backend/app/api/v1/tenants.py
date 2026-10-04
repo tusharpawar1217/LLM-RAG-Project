@@ -210,3 +210,4 @@ async def delete_tenant(
         
     except AskDocsException as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
+

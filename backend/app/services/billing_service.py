@@ -8,14 +8,14 @@ from uuid import UUID
 from sqlalchemy import func, and_, or_
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from app.db.base import get_db
 from app.core.logging import get_logger
 from app.models.billing import (
     Plan, Subscription, UsageRecord, Invoice, Payment,
     PlanTier, SubscriptionStatus, BillingCycle
 )
-from app.models.tenant import Tenant
-from app.models.document import Document, DocumentStatus
+from app.db.models import Tenant
+from app.db.models import Document, DocumentStatus
 from app.services.stripe_service import stripe_service
 
 logger = get_logger(__name__)
@@ -159,7 +159,7 @@ class BillingService:
             plan = subscription.plan
         
         # Count current API keys
-        from app.models.api_key import APIKey
+        from app.db.models import APIKey
         current_keys = (
             self.db.query(APIKey)
             .filter(
@@ -183,7 +183,7 @@ class BillingService:
             plan = subscription.plan
         
         # Count current team members
-        from app.models.user import User
+        from app.db.models import User
         current_members = (
             self.db.query(User)
             .filter(
@@ -462,3 +462,5 @@ class BillingService:
 def get_billing_service(db: Session = next(get_db())) -> BillingService:
     """Get billing service instance."""
     return BillingService(db)
+
+

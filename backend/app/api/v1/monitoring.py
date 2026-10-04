@@ -195,7 +195,7 @@ async def get_system_stats(
         
         # Database connection info
         try:
-            from app.core.database import engine
+            from app.db.base import engine
             pool = engine.pool
             system_stats["database"] = {
                 "pool_size": pool.size(),
@@ -245,3 +245,4 @@ async def acknowledge_alert(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to acknowledge alert: {str(e)}"
         )
+

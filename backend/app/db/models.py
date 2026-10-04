@@ -2,6 +2,7 @@
 SQLAlchemy models for all database tables.
 """
 
+import enum
 from datetime import datetime
 from typing import Any
 from uuid import UUID, uuid4
@@ -11,6 +12,7 @@ from sqlalchemy import (
     BigInteger,
     Boolean,
     DateTime,
+    Enum as SQLEnum,
     Float,
     Index,
     Integer,
@@ -23,6 +25,21 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
 from app.db.base import Base
+
+
+class UserRole(str, enum.Enum):
+    """User role enum."""
+    OWNER = "owner"
+    ADMIN = "admin"
+    MEMBER = "member"
+
+
+class DocumentStatus(str, enum.Enum):
+    """Document processing status enum."""
+    PENDING = "pending"
+    PROCESSING = "processing"
+    COMPLETED = "completed"
+    FAILED = "failed"
 
 
 class Tenant(Base):
@@ -184,8 +201,8 @@ class Document(Base):
     # Metadata
     file_size_bytes: Mapped[int | None] = mapped_column(BigInteger)
     mime_type: Mapped[str | None] = mapped_column(String(100))
-    metadata: Mapped[dict[str, Any]] = mapped_column(
-        JSONB, nullable=False, server_default=text("'{}'::jsonb")
+    doc_metadata: Mapped[dict[str, Any]] = mapped_column(
+        "metadata", JSONB, nullable=False, server_default=text("'{}'::jsonb")
     )
 
     # Timestamps
@@ -356,8 +373,8 @@ class UsageEvent(Base):
     # Cost tracking
     estimated_cost_usd: Mapped[float | None] = mapped_column(Float)
 
-    metadata: Mapped[dict[str, Any]] = mapped_column(
-        JSONB, nullable=False, server_default=text("'{}'::jsonb")
+    event_metadata: Mapped[dict[str, Any]] = mapped_column(
+        "metadata", JSONB, nullable=False, server_default=text("'{}'::jsonb")
     )
 
     # Timestamps
@@ -391,8 +408,8 @@ class SubscriptionEvent(Base):
     to_tier: Mapped[str | None] = mapped_column(String(50))
 
     stripe_event_id: Mapped[str | None] = mapped_column(String(255))
-    metadata: Mapped[dict[str, Any]] = mapped_column(
-        JSONB, nullable=False, server_default=text("'{}'::jsonb")
+    sub_event_metadata: Mapped[dict[str, Any]] = mapped_column(
+        "metadata", JSONB, nullable=False, server_default=text("'{}'::jsonb")
     )
 
     # Timestamps
@@ -422,7 +439,7 @@ class GoldenQA(Base):
         ARRAY(PGUUID(as_uuid=True)), nullable=False
     )
 
-    metadata: Mapped[dict[str, Any]] = mapped_column(
+    extra_metadata: Mapped[dict[str, Any]] = mapped_column("metadata", 
         JSONB, nullable=False, server_default=text("'{}'::jsonb")
     )
 
@@ -463,3 +480,5 @@ class EvalRun(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )
+
+

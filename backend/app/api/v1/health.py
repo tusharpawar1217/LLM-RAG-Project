@@ -51,3 +51,4 @@ async def database_health_check(db: AsyncSession = Depends(get_db)):
             "error": str(e),
             "app": settings.APP_NAME,
         }
+

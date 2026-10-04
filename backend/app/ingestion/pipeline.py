@@ -10,22 +10,22 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.database import get_session
+from app.db.base import get_db as get_session
 from app.core.errors import IngestionError, ParsingError
 from app.core.logging import get_logger
 from app.ingestion.chunking import ChunkingService, DocumentChunk
 from app.ingestion.embeddings import EmbeddingService
 from app.ingestion.parsers.base import BaseParser
-from app.ingestion.parsers.docx import DOCXParser
+from app.ingestion.parsers.docx import DocxParser
 from app.ingestion.parsers.markdown import MarkdownParser
-from app.ingestion.parsers.pdf import PDFParser
-from app.ingestion.parsers.txt import TXTParser
-from app.ingestion.parsers.url_crawler import URLCrawler
-from app.models.document import Document, DocumentStatus
-from app.models.tenant import Tenant
+from app.ingestion.parsers.pdf import PdfParser
+from app.ingestion.parsers.txt import TxtParser
+from app.ingestion.parsers.url_crawler import UrlCrawler
+from app.db.models import Document, DocumentStatus
+from app.db.models import Tenant
 from app.retrieval.vector_store import QdrantVectorStore
-from app.utils.cost_calculator import calculate_embedding_cost
-from app.utils.hashing import calculate_content_hash
+from app.utils.cost_calculator import CostCalculator
+from app.utils.hashing import compute_content_hash
 
 logger = get_logger(__name__)
 
@@ -35,18 +35,19 @@ class IngestionPipeline:
     
     def __init__(self):
         self.parsers: Dict[str, BaseParser] = {
-            'pdf': PDFParser(),
-            'docx': DOCXParser(), 
-            'doc': DOCXParser(),
+            'pdf': PdfParser(),
+            'docx': DocxParser(), 
+            'doc': DocxParser(),
             'md': MarkdownParser(),
             'markdown': MarkdownParser(),
-            'txt': TXTParser(),
-            'text': TXTParser(),
-            'url': URLCrawler(),
+            'txt': TxtParser(),
+            'text': TxtParser(),
+            'url': UrlCrawler(),
         }
         self.chunking_service = ChunkingService()
         self.embedding_service = EmbeddingService()
         self.vector_store = QdrantVectorStore()
+        self.cost_calculator = CostCalculator()
     
     async def ingest_document(
         self,
@@ -434,3 +435,4 @@ class IngestionPipeline:
             logger.info("Ingestion pipeline closed")
         except Exception as e:
             logger.warning(f"Error closing ingestion pipeline: {e}")
+

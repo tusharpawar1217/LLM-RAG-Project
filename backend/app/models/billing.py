@@ -12,7 +12,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app.core.database import Base
+from app.db.base import Base
 
 
 class PlanTier(str, Enum):
@@ -133,7 +133,7 @@ class Subscription(Base):
     cancel_at_period_end = Column(Boolean, nullable=False, default=False)
     
     # Metadata
-    metadata = Column(JSON, nullable=False, default=dict)
+    subscription_metadata = Column("metadata", JSON, nullable=False, default=dict)
     
     # Timestamps
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
@@ -199,7 +199,7 @@ class Invoice(Base):
     # Details
     description = Column(Text, nullable=True)
     line_items = Column(JSON, nullable=False, default=list)  # Invoice line items
-    metadata = Column(JSON, nullable=False, default=dict)
+    invoice_metadata = Column("metadata", JSON, nullable=False, default=dict)
     
     # URLs
     hosted_invoice_url = Column(String(500), nullable=True)  # Stripe hosted URL
@@ -265,7 +265,7 @@ class Payment(Base):
     # Details
     description = Column(Text, nullable=True)
     failure_reason = Column(String(500), nullable=True)
-    metadata = Column(JSON, nullable=False, default=dict)
+    payment_metadata = Column("metadata", JSON, nullable=False, default=dict)
     
     # Timestamps
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
@@ -306,7 +306,7 @@ class UsageRecord(Base):
     period_end = Column(DateTime, nullable=False)
     
     # Metadata
-    metadata = Column(JSON, nullable=False, default=dict)
+    usage_metadata = Column("metadata", JSON, nullable=False, default=dict)
     
     # Timestamps
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
@@ -323,3 +323,4 @@ class UsageRecord(Base):
     
     def __repr__(self) -> str:
         return f"<UsageRecord(tenant_id='{self.tenant_id}', queries={self.queries_count})>"
+

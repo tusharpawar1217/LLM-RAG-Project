@@ -12,11 +12,11 @@ from arq.connections import RedisSettings
 from sqlalchemy import select
 
 from app.core.config import settings
-from app.core.database import get_session
+from app.db.base import get_db as get_session
 from app.core.logging import get_logger
 from app.ingestion.pipeline import IngestionPipeline
-from app.models.document import Document, DocumentStatus
-from app.models.tenant import Tenant
+from app.db.models import Document, DocumentStatus
+from app.db.models import Tenant
 
 logger = get_logger(__name__)
 
@@ -522,3 +522,4 @@ async def get_job_status(job_id: str) -> dict:
         
     finally:
         await redis.close()
+

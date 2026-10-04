@@ -262,3 +262,4 @@ class UserService:
         result = await self.db.execute(stmt)
         
         return list(result.scalars().all())
+

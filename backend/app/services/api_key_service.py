@@ -229,3 +229,4 @@ class APIKeyService:
             List of scopes
         """
         return api_key.scopes or ["query"]  # Default to query scope
+

@@ -175,3 +175,4 @@ async def deactivate_user(
         
     except AskDocsException as e:
         raise HTTPException(status_code=e.status_code, detail=e.message)
+

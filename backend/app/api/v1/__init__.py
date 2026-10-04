@@ -16,3 +16,4 @@ router.include_router(api_keys.router, prefix="/api-keys", tags=["api-keys"])
 router.include_router(documents.router, prefix="/documents", tags=["documents"])
 router.include_router(query.router, prefix="/query", tags=["query"])
 router.include_router(billing.router, prefix="/billing", tags=["billing"])
+

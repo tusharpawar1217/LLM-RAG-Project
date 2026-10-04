@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.core.errors import InsufficientContextError, RetrievalError
 from app.core.logging import get_logger
 from app.generation.generator import AnswerGenerator, GeneratedAnswer
-from app.models.tenant import Tenant
+from app.db.models import Tenant
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.sparse import bm25_manager
 from app.verification.verifier import CitationVerifier
@@ -456,3 +456,5 @@ class QueryService:
             logger.info("Query service closed")
         except Exception as e:
             logger.warning(f"Error closing query service: {e}")
+
+

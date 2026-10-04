@@ -14,13 +14,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.config import settings
-from app.core.database import get_session
+from app.db.base import get_db as get_session
 from app.core.errors import DocumentError, ValidationError
 from app.core.logging import get_logger
 from app.ingestion.pipeline import IngestionPipeline
-from app.models.document import Document, DocumentStatus
-from app.models.tenant import Tenant
-from app.utils.hashing import calculate_file_hash
+from app.db.models import Document, DocumentStatus
+from app.db.models import Tenant
+from app.utils.hashing import compute_file_hash
 from app.workers.ingestion import enqueue_document_ingestion, enqueue_document_reingestion, get_job_status
 
 logger = get_logger(__name__)
@@ -109,7 +109,7 @@ class DocumentService:
                         shutil.copyfileobj(file.file, buffer)
                     
                     # Calculate file hash
-                    file_hash = calculate_file_hash(file_path)
+                    file_hash = compute_file_hash(file_path)
                     document.metadata['file_hash'] = file_hash
                     document.metadata['file_size'] = file_path.stat().st_size
                     document.metadata['original_filename'] = file.filename
@@ -401,7 +401,7 @@ class DocumentService:
                         shutil.copyfileobj(file.file, buffer)
                     
                     # Update metadata
-                    file_hash = calculate_file_hash(file_path)
+                    file_hash = compute_file_hash(file_path)
                     document.metadata.update({
                         'file_hash': file_hash,
                         'file_size': file_path.stat().st_size,
@@ -635,3 +635,6 @@ class DocumentService:
             logger.info("Document service closed")
         except Exception as e:
             logger.warning(f"Error closing document service: {e}")
+
+
+

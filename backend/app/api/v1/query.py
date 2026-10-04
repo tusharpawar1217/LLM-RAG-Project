@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_tenant_user, get_session
 from app.core.logging import get_logger
-from app.models.user import User
+from app.db.models import User
 from app.services.query_service import QueryService
 
 logger = get_logger(__name__)
@@ -303,3 +303,4 @@ async def submit_query_feedback(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to submit feedback"
         )
+

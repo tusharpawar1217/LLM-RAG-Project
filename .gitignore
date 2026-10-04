@@ -103,10 +103,8 @@ jspm_packages/
 *.temp
 
 # Documentation files (excluding main README)
-LOCAL_SETUP.md
-QUICK_START.md
-MODULE*.md
-COMPLETION*.md
+*.md
+!README.md
 
 # Demo and test files
 demo_*.py

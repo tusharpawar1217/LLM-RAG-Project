@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "askdocs"
-version = "0.1.0"
+version = "0.2.0"
 description = "Production-grade multi-tenant RAG SaaS"
 authors = ["AskDocs Team"]
 readme = "README.md"
