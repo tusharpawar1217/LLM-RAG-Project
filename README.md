@@ -61,7 +61,7 @@ AskDocs is a **production-grade, multi-tenant SaaS platform** where businesses c
 - **Qdrant** vector database
 - **ARQ** background processing
 - **Next.js** frontend dashboard
-- **Monitoring & alerting**
+
 
 </td>
 </tr>
